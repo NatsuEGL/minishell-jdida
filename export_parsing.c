@@ -6,17 +6,18 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:47:52 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 21:09:59 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:32:17 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	export_parsing(t_env *list, t_env **envp, t_var3 **vars)
+int	export_parsing(t_env *list, t_env **envp, t_var3 **vars, char **p)
 {
 	if (!ft_isalpha(list->c[0]) && list->c[0] != '_')
 	{
-		ft_putstr_fd("not a valid identifier\n", 2);
+		ft_putstr_fd(*p, 2);
+		ft_putstr_fd(": not a valid identifier\n", 2);
 		if ((*vars)->v)
 			free((*vars)->v);
 		(*envp)->es = 1;

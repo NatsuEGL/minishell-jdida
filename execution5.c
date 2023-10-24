@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:06:12 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/21 22:34:16 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:11:00 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,19 @@ void	multiple_command(t_exec *exec_val, t_env **envp)
 
 void	free_list_exe(t_exec **list)
 {
+	int	i;
+
+	i = 0;
 	if (!(*list))
 		return ;
 	if ((*list)->next)
 		free_list_exe(&(*list)->next);
-	free_doublep((*list)->command);
+	while ((*list)->command[i])
+	{
+		free((*list)->command[i]);
+		i++;
+	}
+	free((*list)->command);
 	free(*list);
 	*list = NULL;
 }

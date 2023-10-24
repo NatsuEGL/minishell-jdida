@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 08:16:34 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 20:59:25 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 09:39:42 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env	*filling_env(t_env *a, char **env)
 
 	i = 0;
 	size = size_ofenv(env);
-	a->envir = malloc(sizeof(char *) * size);
+	a->envir = malloc(sizeof(char *) * (size + 1));
 	while (env[i])
 	{
 		a->envir[i] = ft_strdup(env[i]);
@@ -92,9 +92,13 @@ int	only_alnum(char *str)
 	{
 		if (str[i] == '+')
 		{
-			if (str[i + 1] != '=')
+			if (str[i + 1] == '=')
+				return (1);
+			else
 				return (0);
 		}
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 21:03:03 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 22:31:57 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:34:41 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	first(t_exec *exec_val, int **fd)
 	if (exec_val->infile != STDIN_FILENO)
 	{
 		if (exec_val->infile == -1)
-				exit(1);
+			exit(1);
 		dup2(exec_val->infile, STDIN_FILENO);
 		close(exec_val->infile);
 	}

@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:46:55 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 21:06:30 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:31:43 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,41 +20,52 @@ void	existing_norm(char **p, t_var3 **vars, t_env **existing)
 	{
 		if ((*existing)->v && (*vars)->v)
 			(*existing)->v = ft_strjoin((*existing)->v, ft_strdup((*vars)->v));
+		free((*vars)->c);
+		free((*vars)->v);
 	}
 	else
 	{
 		if (!(*vars)->v)
 		{
+			free((*vars)->c);
 			free((*vars)->v);
+			free((*existing)->v);
 			return ;
 		}
 		free((*existing)->v);
 		(*existing)->v = ft_strdup((*vars)->v);
-		free_var(vars);
+		free((*vars)->c);
+		free((*vars)->v);
 	}
 }
 
 int	not_exesting(char **p, t_env **new_env, t_var3 **vars, t_env **envp)
 {
 	(*new_env)->c = ft_strdup((*vars)->c);
-	if (export_parsing(*new_env, envp, vars) == -1)
+	if (export_parsing(*new_env, envp, vars, p) == -1)
 		return (-1);
 	(*vars)->v = value_ret(*p);
 	(*new_env)->v = (*vars)->v;
 	if (!(*new_env)->v)
 		(*new_env)->flag2 = 1;
+	free((*vars)->c);
+	if ((*vars)->v)
+		free((*vars)->v);
 	return (0);
 }
 
-int	not_exesting2(t_env **new_env, t_var3 **vars, t_env **envp)
+int	not_exesting2(t_env **new_env, t_var3 **vars, t_env **envp, char **p)
 {
 	(*new_env)->c = ft_strdup((*vars)->c);
-	if (export_parsing(*new_env, envp, vars) == -1)
+	if (export_parsing(*new_env, envp, vars, p) == -1)
 		return (-1);
 	if (!(*vars)->v)
 		(*new_env)->v = ft_strdup("");
 	else
 		(*new_env)->v = ft_strdup((*vars)->v);
+	free((*vars)->c);
+	if ((*vars)->v)
+		free((*vars)->v);
 	return (0);
 }
 
@@ -72,7 +83,7 @@ int	not_exesting_norm(t_env *new_env, t_var3 **vars, char **p, t_env **envp)
 	}
 	else
 	{
-		if (not_exesting2(&new_env, vars, envp) == -1)
+		if (not_exesting2(&new_env, vars, envp, p) == -1)
 		{
 			export_fail_free(new_env, vars);
 			return (-1);

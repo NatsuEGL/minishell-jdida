@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_norm3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:14:30 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 09:25:45 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:40:55 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,16 @@ void	b_norm2(t_exec *tmp, t_env **envp, int data)
 	}
 }
 
-void	exec_norm(t_list **head, t_exec **n)
+int	exec_norm(t_list **head, t_exec **n, t_env **envp)
 {
 	(*head) = (*head)->next;
 	(*n)->flag2 = 1;
 	(*n)->outfile = redirection_out((*head)->command);
 	if ((*n)->outfile == -1)
-		return ;
+	{
+		(*envp)->es = 1;
+		return (-1);
+	}
 }
 
 void	exec_norm2(t_list	**head, t_exec **n)

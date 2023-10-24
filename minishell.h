@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:01 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/23 21:46:08 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:41:08 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ char	**executable_ret(char *path, int dir_length, char *command);
 //exec_norm3.c
 void	b_norm(t_exec *tmp, t_env **envp, int data);
 void	b_norm2(t_exec *tmp, t_env **envp, int data);
-void	exec_norm(t_list **head, t_exec **n);
+int		exec_norm(t_list **head, t_exec **n, t_env **envp);
 void	exec_norm2(t_list	**head, t_exec **n);
 void	exec_norm3(t_list **list, t_exec **n);
 //exec_norm4.c
@@ -249,18 +249,22 @@ void	exec_norm6(t_list **head, t_exec **n, t_exec **exec_val);
 void	exec_norm7(t_exec **n);
 int		exec_norm8(t_exec **n, t_list **list, int s);
 //exec_norm5.c
-void	initialination(t_exec **n, t_exec *exec_val);
-void	initialination2(t_var2 *vars);
+void	initialination(t_exec **n, t_exec *exec_val, t_var2 *vars);
+void	simple_c(t_exec *exec_val);
 int		initialination3(t_list **head, t_exec **n, \
 		t_exec **exec_val, t_env **envp);
 //exit 
 int		check_exit(char *p);
 void	exit_command(char **command);
 int		exit_status(int status);
+//export_norm2.c
+void	free_export2(char *p, t_env **envp);
+char	**u_a_envnorm(t_var3 **vars, t_env **new_env, char **p);
 //export_norm.c
 void	existing_norm(char **p, t_var3 **vars, t_env **existing);
 int		not_exesting(char **p, t_env **new_env, t_var3 **vars, t_env **envp);
-int		not_exesting2(t_env **new_env, t_var3 **vars, t_env **envp);
+int		not_exesting2(t_env **new_env, t_var3 **vars, \
+		t_env **envp, char **p);
 int		not_exesting_norm(t_env *new_env, t_var3 **vars, \
 		char **p, t_env **envp);
 void	export_initialisation(char **p, t_var3 **vars, \
@@ -281,7 +285,7 @@ int		access_confirm1(char **p, t_env **env, int i);
 char	*ft_path2(char *path);
 char	*check_ex(char *p);
 //export_parsing.c
-int		export_parsing(t_env *list, t_env **envp, t_var3 **vars);
+int		export_parsing(t_env *list, t_env **envp, t_var3 **vars, char **p);
 void	free_env(t_env **list);
 void	free_var(t_var3 **list);
 void	export_fail_free(t_env *new_env, t_var3 **vars);

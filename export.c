@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 21:18:19 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 21:36:46 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:09:41 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,63 +63,29 @@ char	*value_ret(char *str)
 	return (s);
 }
 
-int	cheking_only(char *c)
-{
-	int	is_valid_command;
-	int	i;
-
-	i = 0;
-	is_valid_command = 1;
-	while (c[i])
-	{
-		if (ft_isalnum(c[i] == 0))
-		{
-			is_valid_command = 0;
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
 void	update_or_add_env(t_env **envp, char **p)
 {
 	t_env	*existing;
 	t_env	*new_env;
 	t_var3	*vars;
-	char	*x;
 
-	vars = malloc(sizeof(t_var3));
-	p++;
-	new_env = NULL;
-	x = check_ex(*p);
-	if (x)
-		*p = ft_strdup(x);
-	free(x);
+	p = u_a_envnorm(&vars, &new_env, p);
 	while (*p)
 	{
 		if (only_alnum(*p) == 1)
 		{
 			export_initialisation(p, &vars, envp, &existing);
-			if (cheking_only(*p) == 1)
-			{
-				if (existing)
-					existing_norm(p, &vars, &existing);
-				else
-				{
-					if (not_exesting_norm(new_env, &vars, p, envp) == -1)
-						return (free(vars));
-				}
-			}
+			if (existing)
+				existing_norm(p, &vars, &existing);
+			else if (not_exesting_norm(new_env, &vars, p, envp) == -1)
+				return (free(vars));
 		}
 		else
 		{
-			ft_putstr_fd("not a valid identifier\n", 2);
-			(*envp)->es = 1;
-			free(vars);
-			return ;
+			free_export2(*p, envp);
+			return (free(vars));
 		}
 		p++;
 	}
-	free_var(&vars);
+	free(vars);
 }

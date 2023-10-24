@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:01:31 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 22:30:55 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:36:01 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,7 @@ void	simple_command(t_exec *exec_val, t_env **envp)
 		return ;
 	if (pid == 0)
 	{
-		if (exec_val->infile != STDIN_FILENO)
-		{
-			if (exec_val->infile == -1)
-				exit(1);
-			dup2(exec_val->infile, STDIN_FILENO);
-			close(exec_val->infile);
-		}
-		if (exec_val->outfile != STDOUT_FILENO)
-		{
-			dup2(exec_val->outfile, STDOUT_FILENO);
-			close(exec_val->outfile);
-		}
+		simple_c(exec_val);
 		exec_func(exec_val, envp);
 	}
 	waitpid(pid, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 10:53:42 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 22:23:10 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 10:27:53 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	execute_cmd(t_exec *exec_val, t_env **envp)
 		if (!builting_check(exec_val->command[0]))
 		{
 			builting(&exec_val, envp, exec_val->outfile);
+			free_list_exe(&exec_val);
 			return ;
 		}
 		else
@@ -85,6 +86,7 @@ void	execute_cmd(t_exec *exec_val, t_env **envp)
 	}
 	else
 		multiple_command(exec_val, envp);
+	free_list_exe(&exec_val);
 }
 
 void	execution_part(t_list **list, t_env **envp)
@@ -98,8 +100,7 @@ void	execution_part(t_list **list, t_env **envp)
 	if (!head)
 		return ;
 	exec_val = malloc(sizeof(t_exec));
-	initialination2(&vars);
-	initialination(&n, exec_val);
+	initialination(&n, exec_val, &vars);
 	while (head)
 	{
 		if (initialination3(&head, &n, &exec_val, envp) == -1)
@@ -110,10 +111,7 @@ void	execution_part(t_list **list, t_env **envp)
 	}
 	n->next = NULL;
 	if (n->flag == 1)
-	{
 		execute_cmd(exec_val, envp);
-		free_list_exe(&exec_val);
-	}
 	else
 		free(exec_val);
 }
