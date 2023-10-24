@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:14:30 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 10:40:55 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 12:17:36 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	b_norm(t_exec *tmp, t_env **envp, int data)
 	else if (!ft_strcmp(tmp->command[0], "env"))
 	{
 		path = check_env(ft_strdup("PATH"), envp);
-		if (!path)
+		if (!path && (*envp)->f_env == 0)
 		{
 			ft_putstr_fd("env: No such file or directory\n", 2);
 			(*envp)->es = 127;
@@ -66,6 +66,7 @@ int	exec_norm(t_list **head, t_exec **n, t_env **envp)
 		(*envp)->es = 1;
 		return (-1);
 	}
+	return (0);
 }
 
 void	exec_norm2(t_list	**head, t_exec **n)

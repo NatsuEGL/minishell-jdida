@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:01 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/24 10:41:08 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 12:15:52 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_env
 	char			*c;
 	char			*v;
 	int				es;
+	int				f_env;
 	struct s_env	*next;
 }	t_env;
 
@@ -86,7 +87,7 @@ void	print_node_export(t_env *s, int data);
 
 //parsing
 void	ft_free_lst(t_list **list);
-void	parsing(t_list **list, t_env **envp, char **envc);
+void	parsing(t_list **list, t_env **envp, char **envc, int flag);
 void	tokenizer(t_list **list, char *p, t_env **envp);
 int		error_case(t_list **list, t_env **envp, int i, char *p);
 void	tokinizer_norm(t_list **list, t_env **envp);

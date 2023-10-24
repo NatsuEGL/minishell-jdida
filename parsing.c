@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 08:42:16 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/22 22:16:02 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/10/24 12:18:03 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	ft_free_lst(t_list **list)
 	}
 }
 
-void	parsing(t_list **list, t_env **envp, char **envc)
+void	parsing(t_list **list, t_env **envp, char **envc, int flag)
 {
 	char	*cmd;
 
 	(*envp) = fill_list(envc);
 	(*envp)->es = 0;
+	(*envp)->f_env = flag;
 	while (1)
 	{
 		cmd = readline("$ ");
