@@ -6,7 +6,7 @@
 /*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:12:00 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/22 22:22:11 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/10/25 00:32:56 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	normal_expand_helper2_norm(char *s, t_var1 *var, t_env **env, int *i)
 			break ;
 		*i = *i + 1;
 	}
-	var->x = check_env_q(ft_substr(s, j, *i - j), env);
+	if (var->flag == 1)
+		var->x = ft_substr(s, j, *i - j);
+	else
+		var->x = check_env_q(ft_substr(s, j, *i - j), env);
 	if (var->x)
 		var->p = ft_strjoin(var->p, var->x);
 	j = *i;

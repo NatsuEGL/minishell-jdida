@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_norm5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:29:37 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 10:41:17 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 10:09:46 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int	initialination3(t_list **head, t_exec **n, t_exec **exec_val, t_env **envp)
 	else if ((*head)->sep_type == 3)
 		exec_norm5(head, n);
 	else if ((*head)->sep_type == 5)
-		exec_norm6(head, n, exec_val);
-	else if ((*head)->type == 'W')
-		exec_norm2(head, n);
-	else if ((*head)->sep_type == 4)
-		exec_norm7(n);
+		exec_norm6(head, n, exec_val, envp);
+	else
+		initialination3_norm(head, n);
 	return (0);
 }
 

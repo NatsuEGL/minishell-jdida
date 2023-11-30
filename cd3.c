@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd3.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 20:53:34 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/23 21:45:55 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 20:42:56 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,6 @@ void	r_q(t_list **list)
 	while (tmp)
 	{
 		tmp->command = q_remouve(tmp->command, 0, 0);
-		tmp = tmp->next;
-	}
-}
-
-void	minishell_case(t_env **env, t_list **list)
-{
-	t_env	*envp;
-	t_list	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = (*list);
-	envp = (*env);
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->command, "./minishell"))
-		{
-			while (envp)
-			{
-				if (!ft_strcmp("SHLVL", envp->c))
-				{
-					i = ft_atoi(envp->v) + 1;
-					envp->v = ft_itoa(i);
-				}
-				envp = envp->next;
-			}
-		}
 		tmp = tmp->next;
 	}
 }

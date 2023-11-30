@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 10:53:42 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 11:27:56 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:57:36 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	execute_cmd(t_exec *exec_val, t_env **envp)
 			simple_command(exec_val, envp);
 	}
 	else
-		multiple_command(exec_val, envp);
+		multiple_command(exec_val, envp, 0);
 	free_list_exe(&exec_val);
 }
 
@@ -107,11 +107,13 @@ void	execution_part(t_list **list, t_env **envp)
 			(head) = head->next;
 		else if (head)
 			(head) = head->next;
+		if (n->flag == 0)
+			closing_fds(&n);
 		vars.s++;
 	}
 	n->next = NULL;
 	if (n->flag == 1)
 		execute_cmd(exec_val, envp);
 	else
-		free(exec_val);
+		norm_shito(&n, &exec_val);
 }

@@ -6,7 +6,7 @@
 /*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 08:41:03 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/23 13:49:44 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:25:42 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 void	cd_command(char **command, t_env **env)
 {
-	int		i;
 	char	**p;
 
 	p = NULL;
-	i = 0;
 	(*env)->flagcd = 0;
 	if (!command[1])
 		cd_home(env);
-	else if (!ft_strcmp(check_env_cd("PWD", env), command[1]))
-		return ;
-	else if (command[1] && !ft_strcmp(command[1], "/"))
-		cd_slash(env);
 	else
 	{
+		if (command[1][0] == '/')
+			cd_slash(env);
 		p = ft_split(command[1], '/');
 		if (check_split(p) == 0)
 			(*env)->flagcd = access_confirm(p, env);
@@ -97,7 +93,8 @@ void	cd_next(char *command, t_env **env)
 	path = NULL;
 	size = 0;
 	p = last_slash(command);
-	cd_error(command, 1, env);
+	if (cd_error(command, 1, env) == -1)
+		return ;
 	cd_next_env(envp, env);
 	envp = *env;
 	gwc = getcwd(path, size);

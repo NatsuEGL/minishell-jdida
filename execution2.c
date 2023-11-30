@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:56:53 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/23 08:26:10 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 22:30:45 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	redirection_append(char *file)
 	return (fd);
 }
 
-int	here_doc(char *Delim)
+int	here_doc(char *Delim, t_env **env)
 {
 	int		fd[2];
 	int		status;
@@ -53,9 +53,15 @@ int	here_doc(char *Delim)
 	ignore_signals();
 	pid = fork();
 	if (pid == 0)
-		for_here_doc(Delim, fd[1]);
+		for_here_doc(Delim, fd[1], env);
 	waitpid(pid, &status, 0);
-	catch_signals();
+	if (status == 2)
+	{
+		catch_signals();
+		close (fd[1]);
+		close(fd[0]);
+		return (-1);
+	}
 	close (fd[1]);
 	return (fd[0]);
 }

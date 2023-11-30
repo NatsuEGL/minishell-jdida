@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:06:12 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 10:11:00 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 09:08:40 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	multiple_command(t_exec *exec_val, t_env **envp)
+void	multiple_command(t_exec *exec_val, t_env **envp, int i)
 {
 	pid_t	pid[3];
 	int		n;
 	int		**fd;
-	int		i;
 	int		status;
 
 	n = list_size(exec_val);
@@ -37,6 +36,7 @@ void	multiple_command(t_exec *exec_val, t_env **envp)
 	i = 0;
 	while (i < 3)
 		waitpid(pid[i++], &status, 0);
+	catch_signals();
 	(*envp)->es = exit_status(status);
 	free_double(fd);
 }
@@ -50,7 +50,7 @@ void	free_list_exe(t_exec **list)
 		return ;
 	if ((*list)->next)
 		free_list_exe(&(*list)->next);
-	while ((*list)->command[i])
+	while ((*list)->command && (*list)->command[i])
 	{
 		free((*list)->command[i]);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 08:15:30 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 12:08:44 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 10:39:50 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_nodes2(t_list *s)
 	current = s;
 	while (current != NULL)
 	{
-		ft_printf("[%s]---------[%c]\n", current ->command, current->type);
+		printf("[%s]---------[%c]\n", current ->command, current->type);
 		current = current->next;
 	}
 }

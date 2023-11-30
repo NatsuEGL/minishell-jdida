@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:02:54 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 11:27:45 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 21:33:27 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ pid_t	first_child(t_exec *exec_val, t_env **envp, int **fd)
 	size_t	i;
 
 	i = 0;
+	ignore_signals();
 	pid = fork();
 	if (pid == -1)
 	{
@@ -42,6 +43,7 @@ pid_t	first_child(t_exec *exec_val, t_env **envp, int **fd)
 	}
 	else if (pid == 0)
 	{
+		default_signals();
 		first(exec_val, fd);
 		while (fd[i])
 		{
@@ -59,6 +61,7 @@ pid_t	middle_child(t_exec *exec_val, t_env **envp, int **fd, size_t i)
 	pid_t	pid;
 	size_t	j;
 
+	ignore_signals();
 	pid = fork();
 	j = 0;
 	if (pid == -1)
@@ -68,6 +71,7 @@ pid_t	middle_child(t_exec *exec_val, t_env **envp, int **fd, size_t i)
 	}
 	else if (pid == 0)
 	{
+		default_signals();
 		second(exec_val, fd, i);
 		while (fd[j])
 		{
@@ -85,6 +89,7 @@ pid_t	last_child(t_exec *exec_val, t_env **envp, int **fd, int n)
 	pid_t	pid;
 	size_t	j;
 
+	ignore_signals();
 	pid = fork();
 	j = 0;
 	if (pid == -1)
@@ -94,6 +99,7 @@ pid_t	last_child(t_exec *exec_val, t_env **envp, int **fd, int n)
 	}
 	else if (pid == 0)
 	{
+		default_signals();
 		last(exec_val, fd, n);
 		while (fd[j])
 		{

@@ -6,7 +6,7 @@
 /*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 20:14:38 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/23 12:16:34 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/11/30 11:49:07 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*check_env_cd(char *p, t_env **env)
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		return (NULL);
+		return (p);
 	return (tmp->v);
 }
 

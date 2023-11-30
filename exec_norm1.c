@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_norm1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 21:03:03 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 11:28:22 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 09:21:06 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,18 @@ void	exec_func(t_exec *exec_val, t_env **envp)
 		printf_error(exec_val->command[0], envp);
 		exit(127);
 	}
+	if (exec_val && exec_val->command[0][0] == '\0')
+		free_empty_c(&exec_val);
 	free(exec_val->command[0]);
 	exec_val->command[0] = ft_strdup(path);
 	free(path);
 	(*envp)->es = 0;
-	execve(exec_val->command[0], exec_val->command, (*envp)->envir);
+	if (execve(exec_val->command[0], exec_val->command, (*envp)->envir) == -1)
+	{
+		free(exec_val->command[0]);
+		free(exec_val->command);
+		exit (1);
+	}
 }
 
 void	printf_error(char *s, t_env **env)
@@ -44,7 +51,7 @@ void	printf_error(char *s, t_env **env)
 	exit(127);
 }
 
-void	for_here_doc(char *Delim, int fd)
+void	for_here_doc(char *Delim, int fd, t_env **env)
 {
 	char	*cmd;
 
@@ -60,6 +67,7 @@ void	for_here_doc(char *Delim, int fd)
 				exit(0);
 			}
 		}
+		cmd = her_fill(cmd, env);
 		ft_putstr_fd(cmd, fd);
 		write(fd, "\n", 1);
 		free(cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:24:26 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/20 16:41:49 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/25 13:29:00 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	unset_norm(t_env **prev, t_env **current, t_env **envp)
 	free((*current));
 }
 
+void	instialise_unset(t_env **prev, t_env **current, t_env **envp, char *c)
+{
+	*prev = NULL;
+	*current = *envp;
+	while (*current && ft_strcmp((*current)->c, c) != 0)
+	{
+		*prev = *current;
+		*current = (*current)->next;
+	}
+	if (*current)
+		unset_norm(prev, current, envp);
+}
+
 void	delete_from_env(t_env **envp, char **p)
 {
 	t_env	*existing;
@@ -33,21 +46,16 @@ void	delete_from_env(t_env **envp, char **p)
 	p++;
 	while (*p)
 	{
-		c = command_ret(*p);
-		existing = find_node(*envp, c);
-		if (existing)
+		if (only_alnum(*p) == 1)
 		{
-			prev = NULL;
-			current = *envp;
-			while (current && ft_strcmp(current->c, c) != 0)
-			{
-				prev = current;
-				current = current->next;
-			}
-			if (current)
-				unset_norm(&prev, &current, envp);
+			c = command_ret(*p);
+			existing = find_node(*envp, c);
+			if (existing)
+				instialise_unset(&prev, &current, envp, c);
+			free(c);
 		}
-		free(c);
+		else
+			free_export2((*p), envp);
 		p++;
 	}
 }

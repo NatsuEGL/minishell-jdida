@@ -1,0 +1,4 @@
+cat | cat | ls > lol > ..
+< Makefile > lol | cat lol > lol1 | cat lol1 | grep Name // hint : command not found 
+exit exit 
+ls | grep lol1 | exit (dont print exit)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 08:42:16 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/24 12:18:03 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 11:25:56 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parsing(t_list **list, t_env **envp, char **envc, int flag)
 	(*envp)->f_env = flag;
 	while (1)
 	{
-		cmd = readline("$ ");
+		cmd = readline("\e[1;31mminishell$\e[0;37m ");
 		if (!cmd)
 		{
 			ft_putstr_fd("exit", 1);
@@ -116,9 +116,10 @@ void	tokinizer_norm(t_list **list, t_env **envp)
 		return ;
 	}
 	(*envp)->flag = 0;
-	if (check_if_separ(list, "<<") == -1)
+	if (check_if_her(list, "<<") == 0)
 		expand(list, envp);
-	minishell_case(envp, list);
+	if (check_if_separ(list, "<<") == -1)
+		(*envp)->f_expand = 1;
 	if ((*envp)->flag == 0)
 		r_q(list);
 }

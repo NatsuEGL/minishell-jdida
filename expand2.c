@@ -6,7 +6,7 @@
 /*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 08:42:09 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/23 14:18:23 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/10/25 00:37:35 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,35 @@ char	*special_expand(char *p, int *in)
 	{
 		p = ft_strdup("$");
 		i++;
+	}
+	else if (p[i] == '0')
+		p = special_expand_norm(p, &i);
+	else if (p[i] >= '1' && p[i] <= '9')
+	{
+		j = i;
+		while (p[i] && (p[i] != '$' && p[i] != ' ' && p[i] != '\t'))
+			i++;
+		j++;
+		p = ft_substr(p, j, i - j);
+	}
+	else 
+		p = ft_strdup("");
+	(*in) = (*in) + i;
+	return (p);
+}
+
+char	*special_expand2(char *p, int *in, t_var1 *var)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	p = p + *in;
+	if (p[i] == '$')
+	{
+		p = ft_strdup("$");
+		i++;
+		var->flag = 1;
 	}
 	else if (p[i] == '0')
 		p = special_expand_norm(p, &i);

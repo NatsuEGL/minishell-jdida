@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+         #
+#    By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/22 10:32:49 by aamhal            #+#    #+#              #
-#    Updated: 2023/10/04 22:06:07 by akaabi           ###   ########.fr        #
+#    Updated: 2023/11/30 10:39:38 by aamhal           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SOURCE = ft_isalpha.c \
 			ft_puthexa.c \
 			ft_putunbr.c \
 			ft_putadress.c \
-			ft_printf.c \
 			get_next_line.c \
 			get_next_line_utils.c
             

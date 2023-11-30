@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:01:31 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 10:36:01 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/10/24 21:30:17 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ void	simple_command(t_exec *exec_val, t_env **envp)
 	pid = fork();
 	if (pid == -1)
 		return ;
+	ignore_signals();
 	if (pid == 0)
 	{
+		default_signals();
 		simple_c(exec_val);
 		exec_func(exec_val, envp);
 	}
 	waitpid(pid, &status, 0);
+	catch_signals();
 	(*envp)->es = exit_status(status);
 	simple_cmd(&exec_val);
 	return ;

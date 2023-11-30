@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:01 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/24 12:15:52 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:57:47 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_list
 	int				sep_type;
 	char			*buffer;
 	int				pipes[2];
+	int				flag;
 }	t_list;
 
 typedef struct s_exec
@@ -47,6 +48,7 @@ typedef struct s_exec
 
 typedef struct s_env
 {
+	int				f_expand;
 	int				flagcd;
 	int				flag;
 	int				flag2;
@@ -62,6 +64,7 @@ typedef struct s_var1
 {
 	char	*x;
 	char	*p;
+	int		flag;
 }	t_var1;
 
 typedef struct s_var2
@@ -150,6 +153,7 @@ void	separ_expand(t_list *tmp, t_env **env);
 char	*normal_expand_helper1(char *s, t_env **env);
 char	*normal_expand_helper2(char *s, t_env **env);
 char	*special_expand(char *p, int *in);
+char	*special_expand2(char *p, int *in, t_var1 *var);
 int		ft_check_ex(char *p);
 void	separ_expand_norm(t_list **list, t_env **env, t_var1 *var, int *i);
 char	*special_expand_norm(char *p, int *i);
@@ -205,7 +209,7 @@ void	default_signals(void);
 int		redirection_in(char *file);
 int		redirection_out(char *file);
 int		redirection_append(char *file);
-int		here_doc(char *Delim);
+int		here_doc(char *Delim, t_env **env);
 int		list_size(t_exec *exec_val);
 //execution3.c
 char	*searching_path(char *command, t_env **envp);
@@ -218,7 +222,7 @@ pid_t	middle_child(t_exec *exec_val, t_env **envp, int **fd, size_t i);
 pid_t	last_child(t_exec *exec_val, t_env **envp, int **fd, int n);
 void	free_double(int **fd);
 //execution5.
-void	multiple_command(t_exec *exec_val, t_env **envp);
+void	multiple_command(t_exec *exec_val, t_env **envp, int i);
 void	free_list_exe(t_exec **list);
 void	exec_func(t_exec *exec_val, t_env **envp);
 char	*command_slash(char *command, t_env **env);
@@ -228,7 +232,7 @@ void	free_doublep(char **command);
 // void    open_heredoc(t_list **list);
 //exec_norm1.c
 void	printf_error(char *s, t_env **env);
-void	for_here_doc(char *Delim, int fd);
+void	for_here_doc(char *Delim, int fd, t_env **env);
 void	simple_cmd(t_exec **exec_val);
 void	first(t_exec *exec_val, int **fd);
 //exec_norm2.c
@@ -246,7 +250,7 @@ void	exec_norm3(t_list **list, t_exec **n);
 //exec_norm4.c
 int		exec_norm4(t_list **head, t_exec **n);
 void	exec_norm5(t_list **head, t_exec **n);
-void	exec_norm6(t_list **head, t_exec **n, t_exec **exec_val);
+void	exec_norm6(t_list **head, t_exec **n, t_exec **exec_val, t_env **env);
 void	exec_norm7(t_exec **n);
 int		exec_norm8(t_exec **n, t_list **list, int s);
 //exec_norm5.c
@@ -273,7 +277,7 @@ void	export_initialisation(char **p, t_var3 **vars, \
 void	r_q(t_list **list);
 void	exit_norm(char **command, int *ex);
 void	r_q_norm(char *str, char **p, int *i, int *j);
-void	minishell_case(t_env **env, t_list **list);
+void	minishell_case(t_env **env, t_list **list, char **envc, int flag);
 void	while_expand(t_list **tmp, t_env **env);
 char	*check_env_cd(char *p, t_env **env);
 int		access_confirm(char **p, t_env **env);
@@ -294,4 +298,12 @@ void	export_fail_free(t_env *new_env, t_var3 **vars);
 void	printf_error2(char *s, t_env **env);
 int		check_split(char **p);
 int		cd_command_norm(int flag, char **p);
+char	*her_fill(char *p, t_env **env);
+void	initialination3_norm(t_list **head, t_exec **n);
+int		check_if_her(t_list **list, char *separ);
+void	init_expand(int *i, int *j, t_var1 **var, char *s);
+void	free_empty_c(t_exec **exec_val);
+void	closing_fds(t_exec **n);
+void	norm_shito(t_exec **n, t_exec **exec_val);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:08 by aamhal            #+#    #+#             */
-/*   Updated: 2023/10/24 12:17:53 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 10:24:17 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	main(int ac, char **av, char **env)
 	char	**envp;
 	int		flag;
 
-	// catch_signals();
 	(void)ac;
 	(void)av;
 	flag = 0;
 	head = NULL;
 	list = NULL;
+	catch_signals();
 	if (!(*env))
 	{
 		envp = env_null();

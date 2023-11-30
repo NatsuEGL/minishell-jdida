@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_norm3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:14:30 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 12:17:36 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 12:04:38 by aamhal           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,20 @@ void	b_norm2(t_exec *tmp, t_env **envp, int data)
 	else if (tmp->command[0][0] == 'p' || tmp->command[0][0] == 'P')
 		pwd_command(tmp->command[0], envp, data);
 	else if (!ft_strcmp(tmp->command[0], "exit"))
-	{
-		ft_putstr_fd("exit\n", 1);
 		exit_command(tmp->command);
-	}
 }
 
 int	exec_norm(t_list **head, t_exec **n, t_env **envp)
 {
 	(*head) = (*head)->next;
 	(*n)->flag2 = 1;
-	(*n)->outfile = redirection_out((*head)->command);
+	if ((*n)->outfile != STDOUT_FILENO)
+	{
+		close((*n)->outfile);
+		(*n)->outfile = redirection_out((*head)->command);
+	}
+	else
+		(*n)->outfile = redirection_out((*head)->command);
 	if ((*n)->outfile == -1)
 	{
 		(*envp)->es = 1;
