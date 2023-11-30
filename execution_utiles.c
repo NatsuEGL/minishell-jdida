@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:38:14 by aamhal            #+#    #+#             */
-/*   Updated: 2023/11/30 13:58:27 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/11/30 14:44:02 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int	check_if_her(t_list **list, char *separ)
 
 void	free_empty_c(t_exec **exec_val)
 {
+	printf(" : command not found\n");
 	free((*exec_val)->command[0]);
 	free((*exec_val)->command);
-	exit (0);
+	exit (127);
 }
 
 void	closing_fds(t_exec **n)
