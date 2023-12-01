@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:01 by aamhal            #+#    #+#             */
-/*   Updated: 2023/11/30 13:57:47 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:59:10 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_env
 	char			*c;
 	char			*v;
 	int				es;
+	int				seg_flag;
+	int				her_flag;
 	int				f_env;
 	struct s_env	*next;
 }	t_env;
@@ -304,6 +306,6 @@ int		check_if_her(t_list **list, char *separ);
 void	init_expand(int *i, int *j, t_var1 **var, char *s);
 void	free_empty_c(t_exec **exec_val);
 void	closing_fds(t_exec **n);
-void	norm_shito(t_exec **n, t_exec **exec_val);
+void	norm_shito(t_exec **n, t_exec **exec_val, t_env *envp);
 
 #endif

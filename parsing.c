@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 08:42:16 by aamhal            #+#    #+#             */
-/*   Updated: 2023/11/30 11:25:56 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 12:12:49 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,6 @@ void	tokinizer_norm(t_list **list, t_env **envp)
 		(*envp)->f_expand = 1;
 	if ((*envp)->flag == 0)
 		r_q(list);
+	(*envp)->seg_flag = 0;
+	
 }

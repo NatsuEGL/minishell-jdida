@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_norm5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:29:37 by akaabi            #+#    #+#             */
-/*   Updated: 2023/11/30 10:09:46 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:59:50 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	initialination(t_exec **n, t_exec *exec_val, t_var2 *vars)
 
 int	initialination3(t_list **head, t_exec **n, t_exec **exec_val, t_env **envp)
 {
+	(*envp)->her_flag = 0;
 	if ((*head)->sep_type == 1)
 	{
 		if (exec_norm(head, n, envp) == -1)

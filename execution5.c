@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:06:12 by akaabi            #+#    #+#             */
-/*   Updated: 2023/11/30 09:08:40 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:41:19 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void	free_doublep(char **command)
 {
 	int	i;
 
+	if (!command)
+		return ;
 	i = 0;
-	while (command[i])
+	while (command && command[i])
 	{
 		free(command[i]);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 07:29:08 by aamhal            #+#    #+#             */
-/*   Updated: 2023/11/30 10:24:17 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:57:32 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char	**env_null(void)
 	pwd = getcwd(path, sizeof(path));
 	envp = malloc(sizeof(char *) * 4);
 	envp[3] = NULL;
-	envp[0] = ft_strjoin(ft_strdup("PWD="), ft_strdup(pwd));
-	envp[1] = "SHLVL=1";
+	envp[1] = ft_strjoin(ft_strdup("PWD="), ft_strdup(pwd));
+	envp[0] = "SHLVL=1";
 	envp[2] = "_=/usr/bin/env";
 	return (envp);
 }

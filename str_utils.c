@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 08:15:30 by akaabi            #+#    #+#             */
-/*   Updated: 2023/11/30 10:39:50 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 10:37:11 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	print_nodes(t_env *s, int data)
 {
 	t_env	*current;
 
+	if (!s)
+		return;
 	current = s;
 	while (current != NULL)
 	{

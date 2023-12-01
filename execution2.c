@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:56:53 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/24 22:30:45 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:26:55 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	here_doc(char *Delim, t_env **env)
 		return (-1);
 	}
 	close (fd[1]);
+	(*env)->her_flag = 1;
 	return (fd[0]);
 }
 

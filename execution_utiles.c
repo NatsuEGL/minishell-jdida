@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:38:14 by aamhal            #+#    #+#             */
-/*   Updated: 2023/11/30 14:44:02 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/12/01 18:01:08 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void	closing_fds(t_exec **n)
 		close ((*n)->infile);
 }
 
-void	norm_shito(t_exec **n, t_exec **exec_val)
+void	norm_shito(t_exec **n, t_exec **exec_val, t_env *envp)
 {
+	(void)exec_val;
 	closing_fds(n);
-	free(exec_val);
+	if (envp->her_flag == 0)
+		free_list_exe(n);
 }

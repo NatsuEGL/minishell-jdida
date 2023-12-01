@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamhal <aamhal@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 10:24:26 by akaabi            #+#    #+#             */
-/*   Updated: 2023/10/25 13:29:00 by aamhal           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:48:27 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	unset_parsing(t_env **envp, char **p)
+{
+	t_env	*tmp;
+
+	tmp = *envp;
+	if ((!ft_isalpha(p[0][0]) && p[0][0] != '_'))
+	{
+		ft_putstr_fd(*p, 2);
+		ft_putstr_fd(": not a valid identifier\n", 2);
+		(*envp)->es = 1;
+		return (-1);
+	}
+	while (tmp)
+	{
+		if (tmp && p[0][0] == '_')
+			return (-1);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 void	unset_norm(t_env **prev, t_env **current, t_env **envp)
 {
@@ -20,6 +41,7 @@ void	unset_norm(t_env **prev, t_env **current, t_env **envp)
 		*envp = (*current)->next;
 	free((*current)->c);
 	free((*current)->v);
+	free_doublep((*current)->envir);
 	free((*current));
 }
 
@@ -48,6 +70,8 @@ void	delete_from_env(t_env **envp, char **p)
 	{
 		if (only_alnum(*p) == 1)
 		{
+			if(unset_parsing(envp, p) == -1)
+				return ;
 			c = command_ret(*p);
 			existing = find_node(*envp, c);
 			if (existing)

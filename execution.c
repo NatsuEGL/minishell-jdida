@@ -6,7 +6,7 @@
 /*   By: akaabi <akaabi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 10:53:42 by akaabi            #+#    #+#             */
-/*   Updated: 2023/11/30 14:38:17 by akaabi           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:59:26 by akaabi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	execution_part(t_list **list, t_env **envp)
 	head = *list;
 	if (!head)
 		return ;
-	exec_val = malloc(sizeof(t_exec));
+	exec_val = malloc(sizeof(t_exec));	
 	initialination(&n, exec_val, &vars);
 	while (head)
 	{
@@ -115,5 +115,5 @@ void	execution_part(t_list **list, t_env **envp)
 	if (n->flag == 1)
 		execute_cmd(exec_val, envp);
 	else
-		norm_shito(&n, &exec_val);
+		norm_shito(&n, &exec_val, *envp);
 }
